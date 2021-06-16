@@ -1,0 +1,57 @@
+.login {
+  background: linear-gradient(to right, #9400d3 0, #df73ff 100%);
+  margin-top: 3%;
+  padding: 3%;
+  overflow: hidden;
+  width: 40vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logimg {
+  width: 100px;
+}
+.forms {
+  background: #f8f9fa;
+  border-top-left-radius: 10% 50%;
+  border-bottom-right-radius: 10% 50%;
+  margin-bottom: 30px;
+  width: 350px;
+}
+.btnSub {
+  margin-top: 15px;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 2%;
+  background: #fff;
+  color: #9400d3;
+  font-weight: 600;
+  width: 50%;
+  cursor: pointer;
+  font-size: 17px;
+  transition: all 0.8s ease 0s;
+}
+.btnSub:hover {
+  background: #9400d3;
+  color: #fff;
+}
+.logForm {
+  margin-top: 5vh;
+}
+.btnReg {
+  background: 0;
+  border: 0;
+  color: #fff;
+}
+@media only screen and (max-width: 600px) {
+  .login {
+    width: 100vw;
+    margin-top: 0;
+    height: 100vh;
+    padding-top: 55px;
+  }
+  .logForm {
+    margin-top: 100px;
+  }
+}
