@@ -1,4 +1,5 @@
 const express = require("express");
+const bcript = require("bcryptjs");
 const app = express();
 // connect to db file
 require("./db/conn");
@@ -30,7 +31,16 @@ app.post("/register", async (req, res) => {
     const password = req.body.password;
     const cpassword = req.body.confirmpassword;
     if (password === cpassword) {
-      const user = new UsData(req.body);
+      const user = new UsData({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        gender: req.body.gender,
+        phone: req.body.phone,
+        dob: req.body.dob,
+        quest: req.body.quest,
+        password: req.body.password,
+      });
       console.log(
         `data save on our db of ${req.body.firstname} ${req.body.lastname}`
       );
@@ -53,8 +63,9 @@ app.post("/login", async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const user = await UsData.findOne({ email: email });
-    console.log(` ${user.firstname} log in our system`);
-    if (user.password === password) {
+    const pass = await bcript.compare(password, user.password);
+    if (pass) {
+      console.log(`${user.firstname} log in our system`);
       res.status(201).render("index");
     } else {
       res.send("invalid creadintial");

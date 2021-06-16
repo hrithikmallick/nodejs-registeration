@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon src/index.js  -e hbs,js"
+    "dev": "nodemon src/index.js  -e hbs,js"
   },
   "author": "Hrithik Mallick",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "hbs": "^4.1.2",
     "mongoose": "^5.12.13",

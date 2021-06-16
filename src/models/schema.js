@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcript = require("bcryptjs");
 const regSchema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -33,10 +34,6 @@ const regSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  confirmpassword: {
-    type: String,
-    required: true,
-  },
   dob: {
     type: String,
     required: true,
@@ -46,6 +43,15 @@ const regSchema = new mongoose.Schema({
     required: true,
   },
 });
+//checking by pre
+regSchema.pre("save", async function (next) {
+  //is modified for updation
+  if (this.isModified("password")) {
+    this.password = await bcript.hash(this.password, 10);
+  }
+  next();
+});
+
 //create model for collection creation
 const UsData = mongoose.model("user", regSchema);
 //export the model
