@@ -1,7 +1,8 @@
+require("dotenv").config();
 // connection to the server
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb://localhost:27017/Registration", {
+  .connect(process.env.db, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,

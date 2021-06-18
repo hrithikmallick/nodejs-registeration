@@ -1,6 +1,8 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcript = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const regSchema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -42,8 +44,29 @@ const regSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
-//checking by pre
+const tkStr = process.env.SECRET_KEY;
+//checking and genrating token
+regSchema.methods.generatAuthToken = async function () {
+  try {
+    const tkn = await jwt.sign({ _id: this._id }, tkStr);
+    this.tokens = this.tokens.concat({ token: tkn });
+    await this.save();
+    return tkn;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//hashing password
 regSchema.pre("save", async function (next) {
   //is modified for updation
   if (this.isModified("password")) {
